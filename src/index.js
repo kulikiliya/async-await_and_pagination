@@ -95,6 +95,7 @@ function createMarcupGallery(hits) {
 };
 // Пагинация 
 async function handlerLoad() {
+  moreButton.classList.add('is-hidden');
     PAGE_NUMBER += 1;
    
     try {
@@ -103,7 +104,8 @@ async function handlerLoad() {
         imageGallery.insertAdjacentHTML('beforeend', createMarcupGallery(hits));
 
         createLightbox();
-        smoothScroll();
+      smoothScroll();
+      moreButton.classList.remove('is-hidden');
 
         if (PAGE_NUMBER === totalPageQty) {
           Notify.info("We're sorry, but you've reached the end of search results.");
