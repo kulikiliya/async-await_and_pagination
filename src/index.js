@@ -15,7 +15,7 @@ const moreButton = document.querySelector('.load-more');
 // переменные и изначальные события
 const perPage = 40;
 let querry  = ''
-let PAGE_NUMBER = 0
+let PAGE_NUMBER = 1
 let totalPageQty = null;
 searchButton.disabled = true;
 searchButton.classList.add("load-more")
@@ -27,19 +27,31 @@ form.addEventListener('submit', onSubmitEvent);
 moreButton.addEventListener('click', handlerLoad)
 
 
+    const lightbox = new SimpleLightbox('.image-gallery a', {
+        captions: true,
+        captionAttribute: 'alt',
+      captionDelay: 250
+    });
+
+
+
+
 
 async function onSubmitEvent(event) {
     event.preventDefault();
-  imageGallery.innerHTML = ""
-  
+  imageGallery.innerHTML = "";
+  PAGE_NUMBER = 1;
+
     const { searchQuery } = event.currentTarget.elements;
     querry = searchQuery.value.trim();
   
+
   try {
           // получаем доступ к объектам с данными
             const getPhotos = await getData(querry);
             const { hits, totalHits } = getPhotos;
-
+    
+    
             if (!hits.length) {
                 Notify.failure('Sorry, there are no images matching your search query. Please try again.');
                 return;
@@ -49,12 +61,12 @@ async function onSubmitEvent(event) {
 
           // выводим карточки
           imageGallery.insertAdjacentHTML('beforeend', createMarcupGallery(hits));
-          createLightbox();
+              lightbox.refresh();
 
           totalPageQty = Math.ceil(totalHits / perPage);
           
           if (hits.length < perPage) {
-            moreButton.classList.remove('is-hidden')
+            moreButton.classList.add('is-hidden')
             moreButton.disabled = true
             Notify.info("We're sorry, but you've reached the end of search results.");
           }else {
@@ -103,14 +115,14 @@ async function handlerLoad() {
 
         imageGallery.insertAdjacentHTML('beforeend', createMarcupGallery(hits));
 
-        createLightbox();
-      smoothScroll();
+           lightbox.refresh();
+        smoothScroll();
       moreButton.classList.remove('is-hidden');
 
         if (PAGE_NUMBER === totalPageQty) {
           Notify.info("We're sorry, but you've reached the end of search results.");
           moreButton.disabled = true;
-
+moreButton.classList.add('is-hidden');
         }
     }
     catch (err) {
@@ -131,15 +143,7 @@ function onInputStartEvent(event) {
   };
 };
 
-function createLightbox() {
-    const lightbox = new SimpleLightbox('.image-gallery a', {
-        captions: true,
-        captionsData: 'alt',
-      captionDelay: 250
- 
-    });
-    lightbox.refresh();
-}
+
 
 function smoothScroll() {
 
