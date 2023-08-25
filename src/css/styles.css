@@ -1,0 +1,62 @@
+.is-hidden {
+  display: none;
+}
+
+.image-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-top: 20px;
+
+  background-color: whitesmoke;
+}
+
+.button-div {
+  display: flex;
+  justify-content: center;
+
+  background-color: whitesmoke;
+}
+
+.search-form {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  background-color: blueviolet;
+}
+
+.load-more {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.load-more:hover {
+  background-color: #0056b3;
+}
+.image-gallery {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.photo-card {
+  max-width: 100%;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.photo-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
